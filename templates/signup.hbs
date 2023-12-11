@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h2>signup</h2>
+    <h2>Tourist signup</h2>
 
-    <form action="/signup" method="post">
+    <form action="/signup" method="post" onsubmit="return check()">
 
-     <input type="text" name="name" placeholder="name">
-    <input type="text" name="email" placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit">
-    
+        <input type="text" name="name" placeholder="name" required>
+        <br>
+        <input type="text" name="email" placeholder="email" required>
+        <br>
+        <input type="text" name="contact" placeholder="contact no" required>
+        <br>
+        <input type="date" name="date" id="date" placeholder="dob" required>
+        <br>
+        <input type="password" name="psw" id="psw" placeholder="password" required>
+        <br>
+        <input type="password" name="psw-r" id="pswr" placeholder="confirm password" required>
+        <br>
+        <input type="submit" value="sign up">
+
     </form>
+
+    <script type="text/javascript">
+        var pas = document.getElementById("psw").value;
+        var pasr = document.getElementById("pswr").value;
+
+        function check() {
+            if (pas !== psr) {
+                alert("Passwords do not match.");
+                return false;
+            } else if (elm.value.length === 0) {
+                alert("Please enter confirm password.");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    </script>
+
 </body>
+
 </html>

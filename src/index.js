@@ -19,11 +19,20 @@ app.get('/signup',(req,resp)=>{
     resp.render('signup')
 })
 
+app.get('*',(req,res)=>{
+    res.send(`
+    <h1>Invalid page </h1>
+<a target="_blank" href="/login">login page</a>;
+    `);
+})
 app.post("/signup",async (req,resp)=>{
     const data ={
         name:req.body.name,
         email:req.body.email,
-        password:req.body.password,
+        contact:req.body.contact,
+        date:req.body.date,
+        password:req.body.psw,
+        
     }
 
     await collection.insertMany([data]);
