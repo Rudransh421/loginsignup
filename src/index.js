@@ -11,8 +11,8 @@ app.set('view engine','hbs');
 app.set("views",templatepath);
 app.use(express.urlencoded({extended:false}));
 
-app.get('/login',(req,resp)=>{
-    resp.render('login')
+app.get('/connect',(req,resp)=>{
+    resp.render('connect')
 })
 
 app.get('/signup',(req,resp)=>{
@@ -22,16 +22,24 @@ app.get('/signup',(req,resp)=>{
 app.get('*',(req,res)=>{
     res.send(`
     <h1>Invalid page </h1>
-<a target="_blank" href="/login">login page</a>;
+<a  href="/connect">connect buisness</a>
+<br>
+<a  href="/signup">buisness user signup</a>
     `);
 })
 app.post("/signup",async (req,resp)=>{
     const data ={
         name:req.body.name,
+        buisness:req.body.buisness,
         email:req.body.email,
         contact:req.body.contact,
-        date:req.body.date,
+        address:req.body.address,
+        buisnesstype:req.body.btype,
         password:req.body.psw,
+        taxid:req.body.taxid,
+        buisnessdescription:req.body.buisnessdescription,
+        additionalinfo:req.body.additionalinfo,
+
         
     }
 
@@ -41,25 +49,27 @@ app.post("/signup",async (req,resp)=>{
 
 })
 
-app.post("/login",async (req,resp)=>{
+app.post("/connect",async (req,resp)=>{
+    const data ={
+       
+        buisness:req.body.buisness,
+        email:req.body.email,
+        contact:req.body.contact,
+        address:req.body.address,
+        buisnesstype:req.body.btype,
+        password:req.body.psw,
+        taxid:req.body.taxid,
+        buisnessdescription:req.body.buisnessdescription,
+        additionalinfo:req.body.additionalinfo,
 
-
-    try{
-        const check = await collection.findOne({email:req.body.email});
-
-        if(check.password===req.body.password){
-            resp.render('home');
-        }
-        else{
-            resp.send('wrong password');
-        }
+        
     }
 
-    catch{
-        resp.send('wrong details');
-    }
+    await collection.insertMany([data]);
+
+    resp.render('home');
+
 })
-
 
 app.listen(5000,()=>{
     console.log('port connected')
